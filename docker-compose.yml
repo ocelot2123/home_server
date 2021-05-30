@@ -1,0 +1,26 @@
+services:
+    plex:
+        container_name: plex
+        image: plexinc/pms-docker:latest
+        restart: unless-stopped
+        environment:
+            - TZ=Asia/Hong_Kong
+        network_mode: host
+        volumes:
+            - /mnt/md0/Media:/media
+            - /mnt/md0/applications/plex/config:/config
+            - /mnt/md0/applications/plex/transcord:/transcode
+    homer:
+        build:
+            context: ./homer/
+            dockerfile: ./Dockerfile
+            #To build from source, comment previous line and uncomment below
+            #build: .
+        volumes:
+            - /home/edward-server/home_server/homer/public/assets:/www/assets
+        ports:
+            - 8080:8080
+        #environment:
+        #  - UID=1000
+        #  - GID=1000
+        restart: unless-stopped
