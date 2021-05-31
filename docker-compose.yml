@@ -22,21 +22,35 @@ services:
         ports:
             - 8080:8080
         environment:
-          - UID=1000
-          - GID=1000
+          - UID=${PUID}
+          - GID=${PGID}
         restart: unless-stopped
+    
+    #sonarr:
+    #    image: ghcr.io/linuxserver/sonarr
+    #    container_name: sonarr
+    #    environment:
+    #        - PUID=${PUID}
+    #        - PGID=${PGID}
+    #        - TZ=${TZ}
+    #    volumes:
+    #        - ${HDD}/applications/sonarr:/config
+    #        - ${HDD}/Media/Shows:/tv
+    #        - ${HDD}/downloads:/downloads
+    #    ports:
+    #        - 8989:8989
+    #    restart: unless-stopped
 
-    sonarr:
+    sonarr_anime:
         image: ghcr.io/linuxserver/sonarr
-        container_name: sonarr
+        container_name: sonarr_anime
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
         volumes:
-            - ${HDD}/applications/sonarr:/config
-            - ${HDD}/Media/Shows:/tv
-            - ${HDD}/Media/Anime:/anime
+            - ${HDD}/applications/sonarr_anime:/config
+            - ${HDD}/Media/Anime:/tv
             - ${HDD}/downloads:/downloads
         ports:
             - 8989:8989
@@ -90,3 +104,20 @@ services:
         - 51413:51413
         - 51413:51413/udp
         restart: unless-stopped
+
+    netdata:
+        image: netdata/netdata
+        container_name: netdata
+        ports:
+            - 19999:19999
+        restart: unless-stopped
+        cap_add:
+            - SYS_PTRACE
+        security_opt:
+            - apparmor:unconfined
+        volumes:
+            - /etc/passwd:/host/etc/passwd:ro
+            - /etc/group:/host/etc/group:ro
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /etc/os-release:/host/etc/os-release:ro
