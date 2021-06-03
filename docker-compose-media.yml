@@ -1,0 +1,88 @@
+services:
+    plex:
+        container_name: plex
+        image: plexinc/pms-docker:latest
+        restart: unless-stopped
+        environment:
+            - TZ=Asia/Hong_Kong
+        network_mode: host
+        volumes:
+            - ${HDD}/Media:/data
+            - ${HDD}/applications/plex/config:/config
+            - ${HDD}/applications/plex/transcode:/transcode
+    
+    sonarr:
+        image: ghcr.io/linuxserver/sonarr
+        container_name: sonarr
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${HDD}/applications/sonarr:/config
+            - ${HDD}/Media/Shows:/tv
+            - ${HDD}/downloads:/downloads
+        ports:
+            - 8989:8989
+        restart: unless-stopped
+
+    sonarr_anime:
+        image: ghcr.io/linuxserver/sonarr
+        container_name: sonarr_anime
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${HDD}/applications/sonarr_anime:/config
+            - ${HDD}/Media/Anime:/tv
+            - ${HDD}/downloads:/downloads
+        ports:
+            - 8787:8787
+        restart: unless-stopped
+
+    radarr:
+        container_name: radarr
+        image: ghcr.io/linuxserver/radarr
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${HDD}/applications/radarr:/config
+            - ${HDD}/Media/Movies:/movies
+            - ${HDD}/Media/Comedy_Specials:/comedy_specials
+            - ${HDD}/downloads:/downloads
+        ports:
+            - 7878:7878
+        restart: unless-stopped
+    
+    jackett:
+        image: ghcr.io/linuxserver/jackett
+        container_name: jackett
+        environment:
+        - PUID=${PUID}
+        - PGID=${PGID}
+        - TZ=${TZ}
+        - AUTO_UPDATE=true
+        volumes:
+        - ${HDD}/applications/jackett:/config
+        - ${HDD}/downloads/torrent-blackhole:/downloads
+        ports:
+        - 9117:9117
+        restart: unless-stopped
+    
+    lidarr:
+        image: ghcr.io/linuxserver/lidarr
+        container_name: lidarr
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${HDD}/applications/lidarr:/config
+            - ${HDD}/Media/Music:/music
+            - ${HDD}/downloads:/downloads
+        ports:
+            - 8686:8686
+        restart: unless-stopped
