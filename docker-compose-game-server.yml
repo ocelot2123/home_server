@@ -12,4 +12,25 @@ services:
       - UPDATE_MODS_ON_START=true
       - USERNAME=${FACTORIO_USERNAME}
       - TOKEN=${FACTORIO_TOKEN}
+      - TZ=${TZ}
     restart: unless-stopped
+  valheim: 
+    image: lloesche/valheim-server
+    cap_add:
+      - sys_nice
+    volumes: 
+      - ${HDD}/applications/valheim-server/config:/config
+      - ${HDD}/applications/valheim-server/data:/opt/valheim
+    ports: 
+      - "2456-2457:2456-2457/udp"
+      - "9001:9001/tcp"
+    environment:
+      - SERVER_NAME=Mcbitch's Server
+      - WORLD_NAME=jyjyjyjy
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SERVER_PASS=${GAME_SERVER_PASSWORD}
+      - SERVER_PUBLIC=true
+    restart: unless-stopped
+    stop_grace_period: 2m
