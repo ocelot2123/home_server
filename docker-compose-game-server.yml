@@ -1,0 +1,15 @@
+services:
+  factorio:
+    image: factoriotools/factorio:1.1.34
+    ports:
+    - "34197:34197/udp"
+    - "27015:27015/tcp"
+    volumes:
+    - ${HDD}/applications/factorio-server:/factorio
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UPDATE_MODS_ON_START=true
+      - USERNAME=${FACTORIO_USERNAME}
+      - TOKEN=${FACTORIO_TOKEN}
+    restart: unless-stopped
