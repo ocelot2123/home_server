@@ -13,7 +13,7 @@
 8. [Jackett](https://github.com/Jackett/Jackett)
 9. [Lidarr](https://github.com/lidarr)
 10. [Factorio Game Server](https://github.com/factoriotools/factorio-docker)
-11. [Valheim Game Server](https://github.com/lloesche/valheim-server-docker
+11. [Valheim Game Server](https://github.com/lloesche/valheim-server-docker)
 
 ## Required ENV variables in .env file
 ```
