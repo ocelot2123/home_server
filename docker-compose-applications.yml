@@ -1,34 +1,34 @@
-services:  
-    transmission:
-        image: ghcr.io/linuxserver/transmission:latest
-        container_name: transmission
-        environment:
-        - PUID=${PUID}
-        - PGID=${PGID}
-        - TZ=${TZ}
-        - USER=${USERNAME}
-        - PASS=${PASSWORD}
-        volumes:
-        - ${HDD}/applications/transmission:/config
-        - ${HDD}/downloads:/downloads
-        - ${HDD}/downloads/torrent-blackhole:/watch
-        ports:
-        - 9091:9091
-        - 51413:51413
-        - 51413:51413/udp
-        restart: unless-stopped
-    
-    homer:
-        build:
-            context: ./homer/
-            dockerfile: ./Dockerfile
-            #To build from source, comment previous line and uncomment below
-            #build: .
-        volumes:
-            - /home/edward-server/home_server/homer/public/assets:/www/assets
-        ports:
-            - 8080:8080
-        environment:
-            - UID=${PUID}
-            - GID=${PGID}
-        restart: unless-stopped
+services:
+  transmission:
+    image: ghcr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - USER=${USERNAME}
+      - PASS=${PASSWORD}
+    volumes:
+      - ${HDD}/applications/transmission:/config
+      - ${HDD}/downloads:/downloads
+      - ${HDD}/downloads/torrent-blackhole:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+
+  homer:
+    build:
+      context: ./homer/
+      dockerfile: ./Dockerfile
+      #To build from source, comment previous line and uncomment below
+      #build: .
+    volumes:
+      - /home/edward-server/home_server/homer/public/assets:/www/assets
+    ports:
+      - 8080:8080
+    environment:
+      - UID=${PUID}
+      - GID=${PGID}
+    restart: unless-stopped

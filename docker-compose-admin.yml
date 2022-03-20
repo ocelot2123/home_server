@@ -1,45 +1,45 @@
 services:
-    netdata:
-        image: netdata/netdata:latest
-        container_name: netdata
-        ports:
-            - 19999:19999
-        restart: unless-stopped
-        cap_add:
-            - SYS_PTRACE
-        security_opt:
-            - apparmor:unconfined
-        volumes:
-            - /etc/passwd:/host/etc/passwd:ro
-            - /etc/group:/host/etc/group:ro
-            - /proc:/host/proc:ro
-            - /sys:/host/sys:ro
-            - /etc/os-release:/host/etc/os-release:ro
-    pihole:
-        container_name: pihole
-        image: cbcrowe/pihole-unbound:latest
-        hostname: pihole
-        domainname: pihole.local
-        ports:
-            - 443:443/tcp
-            - 53:53/tcp
-            - 53:53/udp
-            - 8008:80/tcp
-            # - 5335:5335/tcp # Uncomment to enable unbound access on local server
-            # - 22/tcp # Uncomment to enable SSH
-        environment:
-            ServerIP: 192.168.50.28
-            TZ: ${TZ}
-            WEBPASSWORD: ${PASSWORD}
-            REV_SERVER: "true"
-            REV_SERVER_TARGET: 192.168.50.1
-            REV_SERVER_DOMAIN: local
-            REV_SERVER_CIDR: 192.168.50.0/24
-            DNS1: 127.0.0.1#5335 # Hardcoded to our Unbound server
-            DNS2: 127.0.0.1#5335 # Hardcoded to our Unbound server
-            DNSSEC: "true" # Enable DNSSEC
-        volumes:
-            - ${HDD}/applications/pihole/etc_pihole-unbound:/etc/pihole:rw
-            - ${HDD}/applications/pihole/etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
-        restart: unless-stopped
-    
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    ports:
+      - 19999:19999
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+
+  pihole:
+    container_name: pihole
+    image: cbcrowe/pihole-unbound:latest
+    hostname: pihole
+    domainname: pihole.local
+    ports:
+      - 443:443/tcp
+      - 53:53/tcp
+      - 53:53/udp
+      - 8008:80/tcp
+      # - 5335:5335/tcp # Uncomment to enable unbound access on local server
+      # - 22/tcp # Uncomment to enable SSH
+    environment:
+      ServerIP: 192.168.50.28
+      TZ: ${TZ}
+      WEBPASSWORD: ${PASSWORD}
+      REV_SERVER: "true"
+      REV_SERVER_TARGET: 192.168.50.1
+      REV_SERVER_DOMAIN: local
+      REV_SERVER_CIDR: 192.168.50.0/24
+      DNS1: 127.0.0.1#5335 # Hardcoded to our Unbound server
+      DNS2: 127.0.0.1#5335 # Hardcoded to our Unbound server
+      DNSSEC: "true" # Enable DNSSEC
+    volumes:
+      - ${HDD}/applications/pihole/etc_pihole-unbound:/etc/pihole:rw
+      - ${HDD}/applications/pihole/etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
+    restart: unless-stopped
