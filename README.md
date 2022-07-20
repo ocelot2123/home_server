@@ -10,10 +10,9 @@
 5. [Plex](https://github.com/plexinc/pms-docker)
 6. [Sonarr](https://github.com/Sonarr/Sonarr)
 7. [Radarr](https://github.com/Radarr/Radarr)
-8. [Jackett](https://github.com/Jackett/Jackett)
+8. [Prowlarr](https://github.com/Prowlarr/Prowlarr)
 9. [Lidarr](https://github.com/lidarr)
-10. [Factorio Game Server](https://github.com/factoriotools/factorio-docker)
-11. [Valheim Game Server](https://github.com/lloesche/valheim-server-docker)
+10. [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
 
 ## Required ENV variables in .env file
 ```
