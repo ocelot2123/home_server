@@ -62,21 +62,6 @@ services:
       - 7878:7878
     restart: unless-stopped
 
-  lidarr:
-    image: ghcr.io/linuxserver/lidarr:latest
-    container_name: lidarr
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${HDD}/applications/lidarr:/config
-      - ${HDD}/Media/Music:/music
-      - ${HDD}/downloads:/downloads
-    ports:
-      - 8686:8686
-    restart: unless-stopped
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:develop
     container_name: prowlarr

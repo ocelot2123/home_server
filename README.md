@@ -11,8 +11,7 @@
 6. [Sonarr](https://github.com/Sonarr/Sonarr)
 7. [Radarr](https://github.com/Radarr/Radarr)
 8. [Prowlarr](https://github.com/Prowlarr/Prowlarr)
-9. [Lidarr](https://github.com/lidarr)
-10. [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
+9. [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
 
 ## Required ENV variables in .env file
 ```
