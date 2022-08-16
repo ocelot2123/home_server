@@ -45,3 +45,17 @@ services:
     ports:
       - "8191:8191"
     restart: unless-stopped
+
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${HDD}/applications/home_assistant:/config
+    ports:
+      - 8123:8123
+    restart: unless-stopped
