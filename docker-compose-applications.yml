@@ -75,3 +75,16 @@ services:
     ports:
       - 8123:8123
     restart: unless-stopped
+
+  syncthing:
+    image: syncthing/syncthing
+    container_name: syncthing
+    hostname: home-syncthing
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${HDD}/applications/syncthing:/var/syncthing
+    network_mode: host
+    restart: unless-stopped
