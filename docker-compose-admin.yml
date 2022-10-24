@@ -32,14 +32,15 @@ services:
       - FTLCONF_LOCAL_IPV4=192.168.50.10
       - TZ=${TZ}
       - WEBPASSWORD=${PASSWORD}
-      - WEBTHEME=${WEBTHEME:-default-dark}
-      - REV_SERVER="true"
+      - WEBTHEME=default-dark
+      - REV_SERVER=true
       - REV_SERVER_TARGET=192.168.50.1
       - REV_SERVER_DOMAIN=local
       - REV_SERVER_CIDR=192.168.50.0/24
       - PIHOLE_DNS_=127.0.0.1#5335
-      - DNSSEC="true"
+      - DNSSEC=true
       - DNSMASQ_LISTENING=single
+      - ANALYZE_ONLY_A_AND_AAAA=true
     volumes:
       - ${HDD}/applications/pihole/etc_pihole-unbound:/etc/pihole:rw
       - ${HDD}/applications/pihole/etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
