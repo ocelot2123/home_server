@@ -30,6 +30,8 @@ services:
       # - 22/tcp # Uncomment to enable SSH
     environment:
       - FTLCONF_LOCAL_IPV4=192.168.50.10
+      - PIHOLE_UID=${PUID}
+      - PIHOLE_GID=${PGID}
       - TZ=${TZ}
       - WEBPASSWORD=${PASSWORD}
       - WEBTHEME=default-dark
