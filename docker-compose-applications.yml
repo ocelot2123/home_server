@@ -74,7 +74,32 @@ services:
       - ${HDD}/applications/home_assistant:/config
     ports:
       - 8123:8123
+    depends_on:
+      - zwave
     restart: unless-stopped
+
+  zwave:
+    container_name: zwave-js-ui
+    image: zwavejs/zwave-js-ui:latest
+    restart: always
+    tty: true
+    stop_signal: SIGINT
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - SESSION_SECRET=mysupersecretkey
+      - ZWAVEJS_EXTERNAL_CONFIG=/usr/src/app/store/.config-db
+      - TZ=${TZ}
+    network_mode: host
+    devices:
+      # Do not use /dev/ttyUSBX serial devices, as those mappings can change over time.
+      # Instead, use the /dev/serial/by-id/X serial device for your Z-Wave stick.
+      - "/dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_30e5fe2d8d74ec11bdd8ab5019c2d21c-if00-port0:/dev/zwave"
+    volumes:
+      - ${HDD}/applications/zwave:/usr/src/app/store
+    ports:
+      - "8091:8091" # port for web interface
+      - "8092:8092" # port for Z-Wave JS websocket server
 
   syncthing:
     image: syncthing/syncthing
