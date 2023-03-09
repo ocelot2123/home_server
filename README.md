@@ -40,12 +40,12 @@ cd local
 
 3. Build the application:
 ```
-docker-compose build
+docker compose build
 ```
 
 4. Run the application:
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Homer dashboard link
