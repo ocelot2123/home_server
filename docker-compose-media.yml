@@ -80,7 +80,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${HDD}/applications/config:/config
+      - ${HDD}/applications/bazarr:/config
       - ${HDD}/Media/Movies:/movies #optional
       - ${HDD}/Media/Shows:/tv #optional
     ports:
