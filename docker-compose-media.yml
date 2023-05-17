@@ -12,6 +12,8 @@ services:
       - ${HDD}/Media:/data
       - ${HDD}/applications/plex/config:/config
       - ${HDD}/applications/plex/transcode:/transcode
+    devices:
+      - /dev/dri:/dev/dri
 
   sonarr:
     image: ghcr.io/linuxserver/sonarr:latest
