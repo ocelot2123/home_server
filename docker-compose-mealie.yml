@@ -9,7 +9,7 @@ services:
     ports:
       - "9925:3000" #
     volumes:
-      - ${HDD}/applications/maelie:/app/data/ #
+      - ${HDD}/applications/mealie:/app/data/ #
   mealie-api:
     image: hkotel/mealie:api-v1.0.0beta-5
     container_name: mealie-api
@@ -18,7 +18,7 @@ services:
         limits:
           memory: 1000M #
     volumes:
-      - ${HDD}/applications/maelie:/app/data/
+      - ${HDD}/applications/mealie:/app/data/
     environment:
       # Set Backend ENV Variables Here
       - ALLOW_SIGNUP=true
