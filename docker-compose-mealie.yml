@@ -5,7 +5,7 @@ services:
     environment:
       # Set Frontend ENV Variables Here
       - API_URL=http://mealie-api:9000 #
-    restart: always
+    restart: unless-stopped
     ports:
       - "9925:3000" #
     volumes:
@@ -28,4 +28,4 @@ services:
       - MAX_WORKERS=1
       - WEB_CONCURRENCY=1
       - BASE_URL=http://192.168.50.10:8080
-    restart: always
+    restart: unless-stopped

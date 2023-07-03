@@ -40,6 +40,7 @@ services:
       dockerfile: ./Dockerfile
       #To build from source, comment previous line and uncomment below
       #build: .
+    container_name: homer
     volumes:
       - /home/edward/home_server/homer/public/assets:/www/assets
     ports:
