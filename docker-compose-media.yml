@@ -88,3 +88,17 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
+
+  overseerr:
+    image: sctx/overseerr:latest
+    container_name: overseerr
+    environment:
+      - LOG_LEVEL=debug
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 5055:5055
+    volumes:
+      - ${HDD}/applications/overseerr:/app/config
+    restart: unless-stopped
