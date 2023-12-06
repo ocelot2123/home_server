@@ -15,6 +15,7 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
+
   caddy:
     image: caddy:2.7
     restart: unless-stopped
@@ -27,3 +28,16 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ${HDD}/applications/caddy/data:/data
       - ${HDD}/applications/caddy/config:/config
+
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${HDD}/applications/tautilli:/config
+    ports:
+      - 8181:8181
+    restart: unless-stopped
