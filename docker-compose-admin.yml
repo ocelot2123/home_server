@@ -17,6 +17,7 @@ services:
       - /etc/os-release:/host/etc/os-release:ro
 
   caddy:
+    container_name: caddy
     image: caddy:2.7
     restart: unless-stopped
     ports:
