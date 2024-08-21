@@ -16,20 +16,6 @@ services:
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
 
-  caddy:
-    container_name: caddy
-    image: caddy:2.7
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-      - "2019:2019"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ${HDD}/applications/caddy/data:/data
-      - ${HDD}/applications/caddy/config:/config
-
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
@@ -41,34 +27,4 @@ services:
       - ${HDD}/applications/tautilli:/config
     ports:
       - 8181:8181
-    restart: unless-stopped
-
-  pihole:
-    container_name: pihole
-    image: cbcrowe/pihole-unbound:latest
-    hostname: pihole
-    domainname: pihole.local
-    ports:
-      - 4343:443/tcp
-      - 53:53/tcp
-      - 53:53/udp
-      - 8008:80/tcp
-      # - 5335:5335/tcp # Uncomment to enable unbound access on local server
-      # - 22/tcp # Uncomment to enable SSH
-    environment:
-      - FTLCONF_LOCAL_IPV4=192.168.50.10
-      - TZ=${TZ}
-      - WEBPASSWORD=${PASSWORD}
-      - WEBTHEME=default-dark
-      - REV_SERVER=true
-      - REV_SERVER_TARGET=192.168.50.1
-      - REV_SERVER_DOMAIN=router.asus.com
-      - REV_SERVER_CIDR=192.168.50.0/24
-      - PIHOLE_DNS_=127.0.0.1#5335
-      - DNSSEC=true
-      - DNSMASQ_LISTENING=single
-      - ANALYZE_ONLY_A_AND_AAAA=true
-    volumes:
-      - ${HDD}/applications/pihole/etc_pihole-unbound:/etc/pihole:rw
-      - ${HDD}/applications/pihole/etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
     restart: unless-stopped
