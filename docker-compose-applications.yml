@@ -96,6 +96,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${HDD}/applications/home_assistant:/config
+      - /run/dbus:/run/dbus:ro
     ports:
       - 8123:8123
     restart: unless-stopped
