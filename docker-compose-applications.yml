@@ -23,7 +23,7 @@ services:
       - FIREWALL_VPN_INPUT_PORTS=21882
 
   transmission:
-    image: ghcr.io/linuxserver/transmission:latest
+    image: ghcr.io/linuxserver/transmission:4.0.5
     container_name: transmission
     network_mode: service:gluetun
     depends_on:
@@ -97,9 +97,35 @@ services:
     volumes:
       - ${HDD}/applications/home_assistant:/config
       - /run/dbus:/run/dbus:ro
+
     ports:
       - 8123:8123
     restart: unless-stopped
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    volumes:
+      - "${HDD}/applications/mosquitto-data:/mosquitto"
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    command: "mosquitto -c /mosquitto-no-auth.conf"
+
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    volumes:
+      - ${HDD}/applications/zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      # Frontend port
+      - 8081:8080
+    environment:
+      - TZ=${TZ}
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
 
   syncthing:
     image: syncthing/syncthing
