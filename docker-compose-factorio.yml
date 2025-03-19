@@ -1,0 +1,22 @@
+services:
+  factorio:
+    image: factoriotools/factorio:latest
+    ports:
+      - "34197:34197/udp"
+      - "34197:34197/tcp"
+      - "27015:27015/tcp"
+    volumes:
+      - ${HDD}/applications/factorio-server:/factorio
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UPDATE_MODS_ON_START=true
+      - USERNAME=${FACTORIO_USERNAME}
+      - TOKEN=${FACTORIO_TOKEN}
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 2G

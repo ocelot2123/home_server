@@ -97,9 +97,23 @@ services:
     volumes:
       - ${HDD}/applications/home_assistant:/config
       - /run/dbus:/run/dbus:ro
-
     ports:
       - 8123:8123
+    restart: unless-stopped
+
+  esphome:
+    image: ghcr.io/esphome/esphome:latest
+    container_name: esphome
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${HDD}/applications/esphome:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 6052:6052
     restart: unless-stopped
 
   mqtt:
