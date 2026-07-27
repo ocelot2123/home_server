@@ -90,9 +90,11 @@ services:
       - 6767:6767
     restart: unless-stopped
 
-  overseerr:
-    image: sctx/overseerr:latest
-    container_name: overseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    user: "${PUID}:${PGID}"
     environment:
       - LOG_LEVEL=debug
       - PUID=${PUID}
