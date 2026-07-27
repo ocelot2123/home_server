@@ -158,3 +158,14 @@ services:
       - ${HDD}/applications/syncthing:/var/syncthing
     network_mode: host
     restart: unless-stopped
+
+  executor:
+    image: ghcr.io/rhyssullivan/executor-selfhost:latest
+    container_name: executor
+    environment:
+      - EXECUTOR_WEB_BASE_URL=http://192.168.50.10:4788
+    ports:
+      - 4788:4788
+    volumes:
+      - ${HDD}/applications/executor:/data
+    restart: unless-stopped
